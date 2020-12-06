@@ -1,0 +1,15 @@
+"""
+    veridelisi/para üzerinde Kod0'ı çalıştırın.
+    Kod1 üzerinde, Tüm banka ve müşterilere "Altın" değişkenini ekleyin. Varlık mı yükümlülük mü?
+    Kod1 üzerinde, açılış bilançolarının tanımlandığı yerde EK olarak Banka X ve Banka Y'ye 20 TL değerinde Altın ekleyin.
+    Sizin yazacağınız yeni kodlar üzerinde, 
+            Kod2 : Müşteri A elindeki nakitin hepsini Banka X'e yatırsın.
+            Kod3 : Müşteri A, 5 TL değerinde altını Banka X'den alsın.
+            Kod4 : Müşteri A, 5 TL değerinde altını Banka Y'ye satsın.
+            
+            20.11.2020
+            Engin YILMAZ
+            Ankara
+            
+            Kodu ilk cevaplayan : https://github.com/belgirgin
+"""    
