@@ -59,9 +59,9 @@ Merkez_Bankasi = Ledger(residual_account_name="Sermaye")
 Hazine = Ledger(residual_account_name="Sermaye") #Bu satırı ekledik.
 
 #  Bankaların varlık ve yükümlülük kalemleri tanımlanıyor.
-Xbankasi.make_asset_accounts(['Nakit','Kredi','Rezervler','Bankalararası Alacak','Devlet Tahvili'])
+Xbankasi.make_asset_accounts(['Nakit','Kredi','Rezervler','Bankalararası Alacak','Devlet Tahvili'])  # Devlet tahvili eklendi.
 Xbankasi.make_liability_accounts(['Müşteri A Mevduatı','Müşteri B Mevduatı','Müşteri C Mevduatı','Bankalararası Borç', 'Tahvil İhracı', 'Merkez Bankasına Borçlar'])
-Ybankasi.make_asset_accounts(['Nakit','Kredi','Rezervler','Bankalararası Alacak','Devlet Tahvili'])
+Ybankasi.make_asset_accounts(['Nakit','Kredi','Rezervler','Bankalararası Alacak','Devlet Tahvili']) # Devlet tahvili eklendi.
 Ybankasi.make_liability_accounts(['Müşteri A Mevduatı','Müşteri B Mevduatı','Müşteri C Mevduatı','Bankalararası Borç', 'Tahvil İhracı', 'Merkez Bankasına Borçlar'])
 
 # Müşterilerin varlık ve yükümlülük kalemleri tanımlanıyor.
@@ -75,7 +75,7 @@ MusteriC.make_liability_accounts(['Kredi'])
 
 # Merkez Bankasının varlık ve yükümlülük kalemleri tanımlanıyor.
 Merkez_Bankasi.make_asset_accounts(['Devlet Tahvili','Bankalara Verilen Krediler'])
-Merkez_Bankasi.make_liability_accounts(['Nakit','Rezervler','Kamu Mevduatı'])
+Merkez_Bankasi.make_liability_accounts(['Nakit','Rezervler','Kamu Mevduatı'])  # Kamu Mevduatı eklendi.
 
 # Hazinenin varlık ve yükümlülük kalemleri tanımlanıyor.
 Hazine.make_asset_accounts(['Kamu Mevduatı'])      #Bu satırı ekledik.
