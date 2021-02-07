@@ -1,0 +1,164 @@
+pip install abcFinance
+
+from abcFinance import Ledger
+
+from IPython.core.display import SVG
+from IPython.display import display_svg
+
+
+def print_balance_sheets_and_money_stocks(*args):
+    MusteriA.book_end_of_period()
+    MusteriB.book_end_of_period()
+    MusteriC.book_end_of_period()
+    
+    if len(args)==0:
+        args = ("bk","hd","fd","ts","pd")
+    
+    if "bk" in args and Bank.get_total_assets() > 0: display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
+    if "hd" in args and Household.get_total_assets() > 0: display_svg(SVG(Household.draw_balance_sheet("Household", width=500)))
+    if "fd" in args and Fed.get_total_assets() > 0: display_svg(SVG(Fed.draw_balance_sheet("Fed", width=500)))
+    if "ts" in args and Treasury.get_total_assets() > 0: display_svg(SVG(Treasury.draw_balance_sheet("Treasury", width=500)))  
+    if "pd" in args and Primary_Dealer.get_total_assets() > 0: display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
+    print_money_stocks()
+    
+#  Her aktörün bilançosunun artık hesabı,(Varlık-Yükümlülük),Sermaye olarak adlandırılıyor.
+Bank = Ledger(residual_account_name="Net Financial Value")
+Household = Ledger(residual_account_name="Net Financial Value")
+Primary_Dealer = Ledger(residual_account_name="Net Financial Value")
+Treasury = Ledger(residual_account_name="Net Financial Value")
+Fed = Ledger(residual_account_name="Net Financial Value")
+
+# Bank 
+Bank.make_asset_accounts(['Reserves','Loans'])
+Bank.make_liability_accounts(['Deposits']) 
+
+#Fed
+Fed.make_asset_accounts(['Credits to Financial Institutions','Treasury Securities'])
+Fed.make_liability_accounts(['Reserves','TGA'])
+
+# Treasury 
+Treasury.make_asset_accounts(['TGA'])
+Treasury.make_liability_accounts(['Treasury Securities']) 
+
+# Primary Dealer 
+Primary_Dealer.make_asset_accounts(['Deposits','Treasury Securities'])
+Primary_Dealer.make_liability_accounts(['Debts to Fed'])  
+                                                                      
+# Household 
+Household.make_asset_accounts(['Deposits','Treasury Securities'])
+Household.make_liability_accounts(['Loans'])
+
+
+
+
+#Kod0
+Bank.book(debit=[('Loans',100)],credit=[('Deposits',100)])
+Household.book(debit=[('Deposits',100)],credit=[('Loans',100)])
+
+display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
+display_svg(SVG(Household.draw_balance_sheet("Household", width=500)))
+
+
+
+#Kod1
+
+"""The Fed undertakes repurchase agreement operations with primary dealers (in which the Fed purchases 
+Treasury securities from primary dealers with a promise to buy it back on a specific date)
+to ensure sufficient reserve balances are circulating for settlement of the Treasury’s auction. 
+Note: Fed purchases Treasury securities from primary dealers with promise and this transaction is recorded in off balance sheet of primary dealers."""
+
+
+
+Fed.book(debit=[('Credits to Financial Institutions',200)],credit=[('Reserves',200)])
+Bank.book(debit=[('Reserves',200)],credit=[('Deposits',200)])
+Primary_Dealer.book(debit=[('Deposits',200)],credit=[('Debts to Fed',200)])
+
+
+
+#Bilançolar
+display_svg(SVG(Fed.draw_balance_sheet("Fed", width=500)))
+display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
+display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
+
+
+
+#Kod2
+"""The Treasury’s auction settles as Treasury securities are exchanged for reserve balances, bank reserve accounts are debited
+to credit the Treasury’s account dealer accounts at banks are debited.""" 
+
+
+Treasury.book(debit=[('TGA',200)],credit=[('Treasury Securities',200)])
+Fed.book(debit=[('Reserves',200)],credit=[('TGA',200)])
+Bank.book(debit=[('Deposits',200)],credit=[('Reserves',200)])
+Primary_Dealer.book(debit=[('Treasury Securities',200)],credit=[('Deposits',200)])
+
+
+
+#Bilançolar
+display_svg(SVG(Treasury.draw_balance_sheet("Treasury", width=500)))
+display_svg(SVG(Fed.draw_balance_sheet("Fed", width=500)))
+display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
+display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
+
+
+
+
+#Kod3
+"""The Treasury deficit spends by debiting its account at the Fed, resulting in a credit to bank reserve accounts 
+at the Fed and the bank accounts of spending recipients"""
+Treasury.book(debit=[('Net Financial Value',200)],credit=[('TGA',200)])
+Fed.book(debit=[('TGA',200)],credit=[('Reserves',200)])
+Bank.book(debit=[('Reserves',200)],credit=[('Deposits',200)])
+Household.book(debit=[('Deposits',200)],credit=[('Net Financial Value',200)])
+
+
+
+#Bilançolar
+display_svg(SVG(Treasury.draw_balance_sheet("Treasury", width=500)))
+display_svg(SVG(Fed.draw_balance_sheet("Fed", width=500)))
+display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
+display_svg(SVG(Household.draw_balance_sheet("Household", width=500)))
+
+
+
+#Kod4
+#Household buy the Treasury Securities from Primary Dealers . 
+#Price is 250 dolar.
+
+Household.book(debit=[('Treasury Securities',200)],credit=[('Net Financial Value',200)])
+Household.book(debit=[('Net Financial Value',250)],credit=[('Deposits',250)])
+display_svg(SVG(Household.draw_balance_sheet("Household", width=500)))
+
+Primary_Dealer.book(debit=[('Net Financial Value',200)],credit=[('Treasury Securities',200)])
+Primary_Dealer.book(debit=[('Deposits',250)],credit=[('Net Financial Value',250)])
+display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
+
+
+#Kod5
+#The Fed’s repurchase agreement is reversed
+
+#Başlangıç
+Fed.book(debit=[('Reserves',200)],credit=[('Credits to Financial Institutions',200)])
+Bank.book(debit=[('Deposits',200)],credit=[('Reserves',200)])
+Primary_Dealer.book(debit=[('Debts to Fed',200)],credit=[('Deposits',200)])
+
+
+
+#Bilançolar
+display_svg(SVG(Fed.draw_balance_sheet("Fed", width=500)))
+display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
+display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
+
+
+
+#Kod6
+
+
+#Bilançolar
+display_svg(SVG(Fed.draw_balance_sheet("Fed", width=500)))
+display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
+display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
+display_svg(SVG(Household.draw_balance_sheet("Household", width=500)))
+display_svg(SVG(Treasury.draw_balance_sheet("Treasury", width=500)))
+
+
