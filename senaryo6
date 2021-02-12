@@ -1,3 +1,14 @@
+"""
+    Fed, Primary Dealers ile Repo yapıyor. 
+            
+            13.02.2021
+            Engin YILMAZ
+            Ankara
+            
+            
+""" 
+
+
 pip install abcFinance
 
 from abcFinance import Ledger
