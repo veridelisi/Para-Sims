@@ -51,7 +51,7 @@ Household.make_liability_accounts(['Loans'])
 
 
 
-#Kod0
+#Kod0 Banka, hanehalkına kredi verir.
 Bank.book(debit=[('Loans',100)],credit=[('Deposits',100)])
 Household.book(debit=[('Deposits',100)],credit=[('Loans',100)])
 
@@ -62,10 +62,7 @@ display_svg(SVG(Household.draw_balance_sheet("Household", width=500)))
 
 #Kod1
 
-"""The Fed undertakes repurchase agreement operations with primary dealers (in which the Fed purchases 
-Treasury securities from primary dealers with a promise to buy it back on a specific date)
-to ensure sufficient reserve balances are circulating for settlement of the Treasury’s auction. 
-Note: Fed purchases Treasury securities from primary dealers with promise and this transaction is recorded in off balance sheet of primary dealers."""
+"""Fed,primary dealers ile repo işlemi yapar. Burada primary dealerslerin repo için teminat verdiği tahvilleri bilanço dışında gösterdiğini varsayıyoruz """
 
 
 
@@ -83,8 +80,7 @@ display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
 
 
 #Kod2
-"""The Treasury’s auction settles as Treasury securities are exchanged for reserve balances, bank reserve accounts are debited
-to credit the Treasury’s account dealer accounts at banks are debited.""" 
+"""Primary Dealers, hazine tahvillerini alır.""" 
 
 
 Treasury.book(debit=[('TGA',200)],credit=[('Treasury Securities',200)])
@@ -104,8 +100,7 @@ display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
 
 
 #Kod3
-"""The Treasury deficit spends by debiting its account at the Fed, resulting in a credit to bank reserve accounts 
-at the Fed and the bank accounts of spending recipients"""
+"""Hazine, tahvil satışından elde ettiği parayı vatandaş için harcar"""
 Treasury.book(debit=[('Net Financial Value',200)],credit=[('TGA',200)])
 Fed.book(debit=[('TGA',200)],credit=[('Reserves',200)])
 Bank.book(debit=[('Reserves',200)],credit=[('Deposits',200)])
@@ -122,7 +117,7 @@ display_svg(SVG(Household.draw_balance_sheet("Household", width=500)))
 
 
 #Kod4
-#Household buy the Treasury Securities from Primary Dealers
+#Primary Dealers, elindeki tahvilleri vatandaşa satmaya başlar
 
 Primary_Dealer.book(debit=[('Deposits',200)],credit=[('Treasury Securities',200)])
 Household.book(debit=[('Treasury Securities',200)],credit=[('Deposits',200)])
@@ -134,7 +129,7 @@ display_svg(SVG(Primary_Dealer.draw_balance_sheet("Primary Dealer", width=500)))
 
 
 #Kod5
-#The Fed’s repurchase agreement is reversed
+#Her repo işleminin bir sonu vardır.Kod1'in ters kaydı yapılır
 
 #Başlangıç
 Fed.book(debit=[('Reserves',200)],credit=[('Credits to Financial Institutions',200)])
