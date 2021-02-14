@@ -129,3 +129,19 @@ display_svg(SVG(MusteriB.draw_balance_sheet("Müşteri B", width=500)))
 
 #Para Arzı
 print_money_stocks()
+
+
+
+#kod4, Banka, merkez bankasından aldığı krediyi geri öder.
+
+
+Ybankasi.book(debit=[('Merkez Bankasına Borçlar',100)],credit=[('Rezervler',100)])
+Merkez_Bankasi.book(debit=[('Rezervler',100)],credit=[('Bankalara Verilen Krediler',100)])
+
+#Bilançolar
+display_svg(SVG(Ybankasi.draw_balance_sheet("Banka Y", width=500)))
+display_svg(SVG(Merkez_Bankasi.draw_balance_sheet("Merkez Bankası", width=500)))
+
+
+#Para Arzı
+print_money_stocks()
