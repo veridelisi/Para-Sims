@@ -1,3 +1,18 @@
+"""
+Vatandaş vergisini ödüyor. Mevduat, vatandaşın bankasından Ziraat Bankasına (Banka X) gidiyor.
+Ziraat Bankası, bu mevduatı TCMB'ye aktarıyor. Mevduat, kamu mevduatı oluyor.
+Hazine, kamu mevduatını harcıyor.
+
+Dr. Engin YILMAZ
+18/03/2021
+
+@vefinans hocama teşekkür ederim.
+
+
+"""
+
+
+
 pip install abcFinance
 
 from abcFinance import Ledger
@@ -91,32 +106,46 @@ display_svg(SVG(Ybankasi.draw_balance_sheet("Banka Y", width=500)))
 display_svg(SVG(MusteriA.draw_balance_sheet("Müşteri A", width=500)))
 display_svg(SVG(Merkez_Bankasi.draw_balance_sheet("Merkez Bankası", width=500)))
 
+"""
+Müşteri A, 30 TL vergi ödemesini Banka Y üzeriden yapıyor.
+Banka Y'den çıkan mevduat, Ziraat Bankasına (Banka X) gidiyor.
 
 
-#Başlangıç
+
+"""
+
+
+#Kod-1
 MusteriA.book(debit=[('Sermaye',30)],credit=[('Mevduat',30)])
 Ybankasi.book(debit=[('Müşteri A Mevduatı',30)],credit=[('Rezervler',30)])
-Xbankasi.book(debit=[('Rezervler',30)],credit=[('Kamu Mevduatı',30)])
+Xbankasi.book(debit=[('Rezervler',30)],credit=[('Müşteri A Mevduatı',30)])
 
 display_svg(SVG(Xbankasi.draw_balance_sheet("Banka X", width=500)))
 display_svg(SVG(Ybankasi.draw_balance_sheet("Banka Y", width=500)))
 display_svg(SVG(MusteriA.draw_balance_sheet("Müşteri A", width=500)))
 
+"""
+Ziraat Bankası (Banka X), bu mevduatı TCMB'ye gönderiyor.
+Rezervler azalıp, kamu mevduatı artıyor.
 
+"""
 
-#Başlangıç
+#Kod-2
 
-Xbankasi.book(debit=[('Kamu Mevduatı',30)],credit=[('Rezervler',30)])
+Xbankasi.book(debit=[('Müşteri A Mevduatı',30)],credit=[('Rezervler',30)])
 Merkez_Bankasi.book(debit=[('Rezervler',30)],credit=[('Kamu Mevduatı',30)])
-
 
 display_svg(SVG(Merkez_Bankasi.draw_balance_sheet("Merkez Bankası", width=500)))
 display_svg(SVG(Xbankasi.draw_balance_sheet("Banka X", width=500)))
 
+"""
+Hazine, kamu mevduatını harcıyor. Müşteri A'nın tüm vatandaşları temsil ettiğini düşünün.
+Devlet, kamu harcamasını buradan yapıyor.
+
+"""
 
 
-
-#Başlangıç
+#Kod-3
 
 MusteriA.book(debit=[('Mevduat',30)],credit=[('Sermaye',30)])
 Merkez_Bankasi.book(debit=[('Kamu Mevduatı',30)],credit=[('Rezervler',30)])
