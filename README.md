@@ -1,8 +1,10 @@
-#You need to install the following module
-pip install abcFinance
+
 
 # parasimulasyon
 "Parayı Kim Yaratır?" kitabı çalışma sayfası
+
+#Aşağıdaki modülü kurunuz.
+pip install abcFinance
 
 Burada yer alan tüm kodlar "https://github.com/AB-CE/abcFinance" sayfasındaki kodların türkçeleştirilmesi yoluyla oluşturulmuştur. 
 Orjinal kodu yazanlardan izin alınmıştır. Kodların üzerinde değişik simülasyon örneklerine yer verilmiştir.
