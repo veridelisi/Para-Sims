@@ -1,3 +1,6 @@
+#You need to install the following module
+pip install abcFinance
+
 # parasimulasyon
 "Parayı Kim Yaratır?" kitabı çalışma sayfası
 
