@@ -126,7 +126,7 @@ MusteriA.book(debit=[('Sermaye',50)],credit=[('Mevduat/$',50)])
 #Başlangıç- Bilançolar
 display_svg(SVG(Xbankasi.draw_balance_sheet("Banka X", width=500)))
 display_svg(SVG(MusteriA.draw_balance_sheet("Botaş", width=500)))
-display_svg(SVG(Merkez_Bankasi.draw_balance_sheet("Merkez Bankası", width=500)))
+
 
 
 
