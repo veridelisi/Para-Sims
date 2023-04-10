@@ -1,4 +1,5 @@
 //https://www.paraanaliz.com/2021/yazarlar/veri-delisi/fed-bilancosunda-ters-repo-neden-artiyor-g-8472/
+//https://twitter.com/FedGuy12/status/1645409217799688193
   
 #install it
 pip install abcFinance 
@@ -75,9 +76,11 @@ display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
 #Code2, Fed makes a reverse repo with MMF
 Fed.book(debit=[('Reserves',100)],credit=[('Reverse Repo',100)])
 MMF.book(debit=[('Reverse Repo',100)],credit=[('Deposits',100)])
+Bank.book(debit=[('MMF Deposits',100)],credit=[('Reserves',100)])
 
 
 
 #Balance Sheet
 display_svg(SVG(Fed.draw_balance_sheet("Fed", width=500)))
 display_svg(SVG(MMF.draw_balance_sheet("MMF", width=500)))
+display_svg(SVG(Bank.draw_balance_sheet("Bank", width=500)))
