@@ -1,5 +1,6 @@
 //https://www.paraanaliz.com/2021/yazarlar/veri-delisi/fed-bilancosunda-ters-repo-neden-artiyor-g-8472/
 //https://twitter.com/FedGuy12/status/1645409217799688193
+//https://fedguy.com/primer-a-deposits-life/
   
 #install it
 pip install abcFinance 
