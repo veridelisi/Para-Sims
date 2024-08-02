@@ -74,7 +74,7 @@ display_svg(SVG(Merkez_BankasiNazim.draw_balance_sheet("Merkez Bankası Nazım",
 
 
 # 1 dolar= 1 TL (Yiğit BULUT)
-# TCMB işlemin ilk bacağında bankalara 60 dolar döviz geri alacak bankalara 60 TL rezerv ile ödeyecek
+# TCMB işlemin sonunda bankalara 60 dolar döviz geri alacak bankalara 60 TL rezerv ile ödeyecek
 # TCMB bilançosunda hem aktif hem pasif artarken
 # Banka bilançosunda aktifte rezerv artarken döviz azalacak
 # Nazım da TCMB döviz alacağı ve rezerv borcu azalırken
