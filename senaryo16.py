@@ -1,5 +1,5 @@
 # https://www.paraanaliz.com/2023/yazarlar/veri-delisi/devlet-harcamasi-vergi-toplama-ve-devlet-borclanmasi-uzerine-bir-degerlendirme-g-53538/
-
+# https://veridelisi.substack.com/p/understanding-government-balance
 from abcFinance import Ledger
 
 from IPython.core.display import SVG
